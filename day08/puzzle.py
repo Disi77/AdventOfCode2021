@@ -52,23 +52,23 @@ def decoding(s):
 
     #Round 2 = find 0, 6, 9
     for item in s.pattern:
-        if item in digits_dict or len(item) != 6:
+        if len(item) != 6:
             continue
-        if contain_same_segments(item, digits_dict[4]):
+        if contain_same_segments(item, digits_dict[4]) == 0:
             digits_dict[9] = item
         else:
-            if contain_same_segments(item, digits_dict[7]):
+            if contain_same_segments(item, digits_dict[7]) == 0:
                 digits_dict[0] = item
             else:
                 digits_dict[6] = item
     #Round 3 = find 2, 3, 5
     for item in s.pattern:
-        if item in digits_dict or len(item) != 5:
+        if len(item) != 5:
             continue
-        if contain_same_segments(item, digits_dict[7]):
+        if contain_same_segments(item, digits_dict[7]) == 0:
             digits_dict[3] = item
         else:
-            if is_it_five(item, digits_dict[6]):
+            if contain_same_segments(item, digits_dict[6]) == 1:
                 digits_dict[5] = item
             else:
                 digits_dict[2] = item
@@ -78,18 +78,12 @@ def decoding(s):
         result += str(digits_dict.index(digit))
     return int(result)
 
-def is_it_five(item, number_6):
-    diff = 0
-    for i in number_6:
-        if i not in item:
-            diff +=1
-    return diff == 1
-
 def contain_same_segments(item, segments):
+    diff = 0
     for s in segments:
         if s not in item:
-            return False
-    return True
+            diff += 1
+    return diff
         
 
 result = 0
