@@ -5,12 +5,12 @@ class Cave():
     def __init__(self, name, children):
         self.name = name
         self.children = children
-        self.is_small = self.name.islower() and self.name not in ("start", "end")
+        self.is_small = not self.name.isupper()
 
 
 def create_list_of_caves():
     puzzle_input = []
-    with open("AdventOfCode2021/day12/input.txt", mode="r", encoding="utf-8") as file:
+    with open("input.txt", mode="r", encoding="utf-8") as file:
         for line in file:
             item = line.strip().split("-")
             puzzle_input.append(item)
@@ -61,6 +61,7 @@ def find_paths_puzzle2(cave_count, caves, cave, path):
 caves = create_list_of_caves()
 cave_count = find_paths_puzzle1(0, caves, caves["start"], "")
 print(f"Puzzle 1 = {cave_count}")
+
 
 #Puzzle 2
 caves = create_list_of_caves()
