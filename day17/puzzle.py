@@ -58,7 +58,7 @@ target_area = get_target_area("target area: x=269..292, y=-68..-44")
 
 # Puzzle 1 + Puzzle 2
 max_y = 0
-final_probe = ""
+# final_probe = ""
 result = 0
 for x in range(1, target_area["x"][1] + 1):
     for y in range(target_area["y"][0] - 1, 100):
@@ -68,7 +68,7 @@ for x in range(1, target_area["x"][1] + 1):
             for coor in probe.trajectory:
                 if max_y < coor[1]:
                     max_y = coor[1]
-                    final_probe = probe.name
+                    # final_probe = probe.name
 
 print(f"Puzzle 1 = {max_y}")
 print(f"Puzzle 2 = {result}")
