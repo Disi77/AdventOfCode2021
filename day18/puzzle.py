@@ -1,3 +1,5 @@
+import re
+
 def addition(num1, num2):
     return f"[{num1},{num2}]"
 
@@ -56,44 +58,29 @@ def explode_pair(number):
 
 
 def split_into_pair(number):
-    for index in range(len(number)-1):
-        if number[index:index+2].isdigit():
-            origin = number[index:index+2]
-            if number[index+2].isdigit():
-                origin = number[index:index+3]
-            num = int(origin)
-            first = num // 2
-            second = num - first
-            result = f"[{first},{second}]"
-            end = index + len(origin) - 1
-            number = number[:index] + result + number[end+1:]
-            break
-    return number
+    regex = r"[0-9]{2,}"
+    result = re.findall(regex, number)
+    if not result:
+        return number
+    
+    num = int(result[0])
+    first = num // 2
+    second = num - first
+    pair = f"[{first},{second}]"
+    
+    return number.replace(result[0], pair, 1)
 
 
 def magnitude(number):
+    regex = r"\[[0-9]+,[0-9]+\]"
     while True:
-        before = number
-        for i in range(len(number)):
-            if not number[i].isdigit():
-                continue
-            for a in range(i+1, len(number)):
-                if not number[a].isdigit():
-                    break
-            if number[a] != ",":
-                continue
-            #Check that after comma there is another number
-            if not number[a+1].isdigit():
-                continue
-
-            bracket_index = number.index("]", a)
-            x, y = [int(x) for x in number[i:bracket_index].split(",")]
-            origin = f"[{x},{y}]"
-            sum = str(3 * x + 2 * y)
-            number = number.replace(origin, sum)
+        result = re.findall(regex, number)
+        if not result:
             break
-        if before == number:
-            break
+        for item in set(result):
+            first, second = [int(x) for x in item[1:-1].split(",")]
+            sum = str(first * 3 + second * 2)
+            number = number.replace(item, sum)
     return number
 
 
@@ -116,7 +103,7 @@ def calculate_result(puzzle_input):
 
 # Puzzle 1
 puzzle_input = []
-with open("input.txt", mode="r" ,encoding="utf-8") as file:
+with open("AdventOfCode2021/day18/input.txt", mode="r" ,encoding="utf-8") as file:
     for line in file:
         puzzle_input.append(line.strip())
 
@@ -127,7 +114,7 @@ print("Puzzle 1 =", result)
 
 # Puzzle 2
 puzzle_input = []
-with open("input.txt", mode="r" ,encoding="utf-8") as file:
+with open("AdventOfCode2021/day18/input.txt", mode="r" ,encoding="utf-8") as file:
     for line in file:
         puzzle_input.append(line.strip())
 
