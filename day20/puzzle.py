@@ -22,12 +22,10 @@ def print_image(input_image):
     """
     Only for debugging. Not needed for final solution.
     """
-    a = 0
     size = get_size_of_image(input_image)
     for row in range(size["i_from"] - 10, size["i_to"] + 11):
         for col in range(size["j_from"] - 10, size["j_to"] + 11):
             if (row, col) in input_image:
-                a += 1
                 print("#", end=" ")
             else:
                 print(".", end=" ")
@@ -88,4 +86,3 @@ for i in range(50):
         print(f"Puzzle 1 = {len(image)}")
 
 print(f"Puzzle 2 = {len(image)}")
-

@@ -108,7 +108,6 @@ def print_packet(packet, level=0):
             if i == len(packet.subpackets) - 1:
                 print(level * 3 * " ", "   ╙--", end="")
                 print_packet(s, level=level+1)
-                print()
 
             else:
                 print(level * 3 * " ", "   ╟--", end="")
